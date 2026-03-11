@@ -86,12 +86,21 @@ model = BrainLMForPretraining.from_pretrained("josueortc/brainlm", config=config
 
 See the [Data Format](https://github.com/josueortc/BrainLM/wiki/Data-Format) Wiki page for the full schema and how to prepare your own data.
 
+**Example with real fMRI:** To create Arrow datasets from public fMRI data (OpenNeuro ds000228, Schaefer 400 atlas), use the preparation script (requires `nilearn`):
+
+```bash
+pip install nilearn
+python scripts/prepare_example_fmri_data.py --output_dir ./example_fmri --n_subjects 2
+```
+
+Then run `train.py` with `--train_dataset_path ./example_fmri/train` and `--num_brain_voxels 400`. Optionally export one sample to JSON for a project website: `--export_website_json path/to/example_recording.json`.
+
 ## Repository structure
 
 ```
 brainlm_mae/           # Model: config, decoder-only transformer, finetuning head
 utils/                 # Trainer, metrics, plots
-scripts/               # SLURM job scripts (train.sh, finetune.sh)
+scripts/               # SLURM job scripts (train.sh, finetune.sh), prepare_example_fmri_data.py
 tests/                 # pytest tests
 train.py               # Pretraining entry point
 finetune.py            # Finetuning entry point (CLS → MLP regression)

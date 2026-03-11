@@ -30,6 +30,7 @@ htmlcov/
 
 # Generated data and outputs
 sample_data/
+example_fmri/
 training-runs/
 wandb/
 *.ckpt
